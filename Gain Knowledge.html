@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gain Knowledge</title>
+  </head>
+  <style>
+    body {
+      background-color: aliceblue;
+    }
+    #heading {
+      font-style: italic;
+      background-color: darkcyan;
+      color: blanchedalmond;
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+    }
+    #screen {
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      opacity: 0.8;
+      top: 0%;
+      left: 0%;
+      border-radius: 10px;
+      display: none;
+      position: absolute;
+      z-index: 10;
+    }
+    #popup {
+      background-color: darkcyan;
+      color: blanchedalmond;
+      width: 28%;
+      padding: 10px;
+      border-radius: 30px;
+      display: none;
+      margin-left: 35%;
+      position: absolute;
+      margin-top: 10%;
+      z-index: 11;
+    }
+    #book {
+      margin-top: 3px;
+      margin-bottom: 0px;
+    }
+    #user1,
+    #user2 {
+      background-color: transparent;
+      border: none;
+      border-bottom: 2px solid black;
+      outline: none;
+      font-size: 15px;
+      padding: 5px;
+      width: 370px;
+      color: aliceblue;
+      margin-left: 10px;
+    }
+    #user1::placeholder,
+    #user2::placeholder {
+      color: aliceblue;
+      text-align: left;
+      vertical-align: top;
+    }
+    #user3 {
+      border-color: black;
+      background-color: darkcyan;
+      width: 370px;
+      height: 80px;
+      margin-top: 4px;
+      outline: none;
+      color: aliceblue;
+      margin-left: 10px;
+      overflow: break-word;
+    }
+    #user3::placeholder {
+      color: aliceblue;
+    }
+    #add {
+      margin: 5px;
+      background-color: palegoldenrod;
+      color: black;
+      border-radius: 6px;
+      margin-left: 10px;
+      outline: none;
+      border: none;
+    }
+    #cancel {
+      margin: 5px;
+      background-color: palegoldenrod;
+      color: black;
+      border-radius: 6px;
+      margin-left: 10px;
+      outline: none;
+      border: none;
+    }
+    #story {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 70px;
+    }
+    #box1 {
+      background-color: maroon;
+      opacity: 0.5;
+      width: 25%;
+      padding: 8px;
+      border-radius: 20px;
+      margin: 70px;
+      flex-wrap: wrap;
+      color: aliceblue;
+      font-size: x-large;
+      vertical-align: top;
+      display: inline-block;
+    }
+    #delete {
+      background-color: palegoldenrod;
+      color: black;
+      border-radius: 10px;
+      padding: 6px;
+      outline: none;
+      border: none;
+    }
+    #plus {
+      border-radius: 50%;
+      background-color: darkcyan;
+      color: palegoldenrod;
+      padding: 25px;
+      font-size: xx-large;
+      outline: none;
+      border: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+    }
+    .bookplus {
+      background-color: maroon;
+      opacity: 0.5;
+      width: 25%;
+      padding: 8px;
+      border-radius: 20px;
+      margin: 70px;
+      flex-wrap: wrap;
+      color: aliceblue;
+      font-size: x-large;
+    }
+    #newdelete {
+      background-color: palegoldenrod;
+      color: black;
+      border-radius: 10px;
+      padding: 6px;
+      outline: none;
+      border: none;
+      margin-top: auto;
+      align-self: flex-end;
+    }
+  </style>
+  <body>
+    <h1 id="heading">Gain Knowledge</h1>
+    <div id="screen"></div>
+    <div id="popup">
+      <h1 id="book">Add Book</h1>
+      <input id="user1" type="text" placeholder="Book Title" />
+      <input id="user2" type="text" placeholder="Author" />
+      <textarea
+        id="user3"
+        type="text"
+        placeholder="Short Description"
+      ></textarea>
+      <button onclick="update()" id="add">Add</button>
+      <button onclick="erase()" id="cancel">Cancel</button>
+    </div>
+    <div id="story">
+      <div id="box1">
+        <p>
+          Books are man's best friends. Books are portable and so they are easy
+          to carry around. And so books can be read at any time night or day,
+          while travelling on a bus or train or flight, and at meal time too.
+          Books are published in many languages and in varied genres.
+        </p>
+        <button onclick="remove(event)" id="delete">Delete</button>
+      </div>
+    </div>
+    <button onclick="pop()" id="plus">+</button>
+    <script>
+      var plus = document.getElementById("plus");
+      var screen = document.getElementById("screen");
+      var popup = document.getElementById("popup");
+      function pop() {
+        document.getElementById("user1").value = "";
+        document.getElementById("user2").value = "";
+        document.getElementById("user3").value = "";
+        var scroll = window.scroll;
+        popup.style.display = "block";
+        screen.style.display = "block";
+        popup.style.top = scrollY + 100 + "px";
+        screen.style.top = scrollY + "px";
+      }
+      function update() {
+        var user1 = document.getElementById("user1");
+        var user2 = document.getElementById("user2");
+        var user3 = document.getElementById("user3");
+        var newbox = document.createElement("div");
+        newbox.className = "bookplus";
+        newbox.innerHTML =
+          "<h2>" +
+          user1.value +
+          "</h2>" +
+          "<h3>" +
+          user2.value +
+          "</h3>" +
+          "<p>" +
+          user3.value +
+          "</p>";
+        var newdel = document.createElement("button");
+        newdel.textContent = "Delete";
+        newdel.onclick = function (event) {
+          event.target.parentElement.remove();
+        };
+        newdel.id = "newdelete";
+        newbox.append(newdel);
+        document.getElementById("story").appendChild(newbox);
+        popup.style.display = "none";
+        screen.style.display = "none";
+      }
+      var box1 = document.getElementById("box1");
+      var delbt = document.getElementById("delete");
+      function remove(event) {
+        event.target.parentElement.remove();
+      }
+      function erase() {
+        popup.style.display = "none";
+        screen.style.display = "none";
+      }
+    </script>
+  </body>
+</html>
